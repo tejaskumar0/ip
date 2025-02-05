@@ -20,47 +20,61 @@ public class Tywin {
 
         while (true) {
             String line = in.nextLine();
+            String command = line.split(" ")[0]; // Extract the command
 
-            if (line.equals("bye")) {
+            switch (command) {
+            case "bye":
                 System.out.println("Goodbye.");
-                break;
-            } else if (line.equals("list")) {
+                return;
+
+            case "list":
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskCounter; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]); // Display each task
+                    System.out.println((i + 1) + ". " + tasks[i]);
                 }
                 System.out.println("----------------------");
-            } else if (line.startsWith("mark ")) {
-                // Extract task number to mark
-                int taskNumber = Integer.parseInt(line.split(" ")[1]) - 1;
-                if (taskNumber >= 0 && taskNumber < taskCounter) {
-                    tasks[taskNumber].markAsDone();
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + tasks[taskNumber]);
-                } else {
-                    System.out.println("Invalid task number.");
+                break;
+
+            case "mark":
+                try {
+                    int taskNumber = Integer.parseInt(line.split(" ")[1]) - 1;
+                    if (taskNumber >= 0 && taskNumber < taskCounter) {
+                        tasks[taskNumber].markAsDone();
+                        System.out.println("Nice! I've marked this task as done:");
+                        System.out.println("  " + tasks[taskNumber]);
+                    } else {
+                        System.out.println("Invalid task number.");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Invalid input. Please specify a valid task number.");
                 }
                 System.out.println("----------------------");
-            } else if (line.startsWith("unmark ")) {
-                // Extract task number to unmark
-                int taskNumber = Integer.parseInt(line.split(" ")[1]) - 1;
-                if (taskNumber >= 0 && taskNumber < taskCounter) {
-                    tasks[taskNumber].unmarkAsDone();
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  " + tasks[taskNumber]);
-                } else {
-                    System.out.println("Invalid task number.");
+                break;
+
+            case "unmark":
+                try {
+                    int taskNumber = Integer.parseInt(line.split(" ")[1]) - 1;
+                    if (taskNumber >= 0 && taskNumber < taskCounter) {
+                        tasks[taskNumber].unmarkAsDone();
+                        System.out.println("OK, I've marked this task as not done yet:");
+                        System.out.println("  " + tasks[taskNumber]);
+                    } else {
+                        System.out.println("Invalid task number.");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Invalid input. Please specify a valid task number.");
                 }
                 System.out.println("----------------------");
-            } else {
+                break;
+
+            default:
                 // Add a new task
                 tasks[taskCounter] = new Task(line);
                 taskCounter++;
                 System.out.println("added: " + line);
                 System.out.println("----------------------");
+                break;
             }
         }
-
-        in.close(); // Close the scanner
     }
 }
