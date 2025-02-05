@@ -1,4 +1,11 @@
-package PACKAGE_NAME;
+public class Deadline extends Task{
 
-public class Deadline {
+    public Deadline(String description) {
+        super(description);
+    }
+    @Override
+    public String toString() {
+        String status = isDone ? "[X]" : "[ ]";
+        return "[D]" + status + " " + description;
+    }
 }

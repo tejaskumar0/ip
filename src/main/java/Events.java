@@ -1,4 +1,12 @@
-package PACKAGE_NAME;
+public class Events extends ToDos{
 
-public class Events {
+    public Events(String description) {
+        super(description);
+    }
+
+    @Override
+    public String toString() {
+        String status = isDone ? "[X]" : "[ ]";
+        return "[E]" + status + " " + description;
+    }
 }

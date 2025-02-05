@@ -35,6 +35,27 @@ public class Tywin {
                 System.out.println("----------------------");
                 break;
 
+            case "todo":
+                System.out.println("----------------------");
+                System.out.println("Added To Do Task");
+                tasks[taskCounter] = new ToDos(line);
+                taskCounter++;
+                break;
+
+            case "deadline":
+                System.out.println("----------------------");
+                System.out.println("Added Deadline to list");
+                tasks[taskCounter] = new Deadline(line);
+                taskCounter++;
+                break;
+
+            case "event":
+                System.out.println("----------------------");
+                System.out.println("Added Event to list");
+                tasks[taskCounter] = new Events(line);
+                taskCounter++;
+                break;
+
             case "mark":
                 try {
                     int taskNumber = Integer.parseInt(line.split(" ")[1]) - 1;
