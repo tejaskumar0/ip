@@ -9,7 +9,7 @@ public class Tywin {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
 
-        System.out.println("Hello I'm Tywin");
+        System.out.println("Hello I'm Tywin, your personal assistant!");
         System.out.println("What can I do for you?");
         System.out.println("----------------------");
 
@@ -20,11 +20,12 @@ public class Tywin {
 
         while (true) {
             String line = in.nextLine();
-            String command = line.split(" ")[0]; // Extract the command
+            String[] parts = line.split(" ",2);// Extract the command
+            String command = parts[0];
 
             switch (command) {
             case "bye":
-                System.out.println("Goodbye.");
+                System.out.println("Goodbye, have a nice day!");
                 return;
 
             case "list":
@@ -36,13 +37,22 @@ public class Tywin {
                 break;
 
             case "todo":
-                System.out.println("----------------------");
-                System.out.println("Added To Do Task");
-                tasks[taskCounter] = new ToDos(line);
-                taskCounter++;
-                break;
-
+                    if(parts.length < 2 || parts[1].trim().isEmpty()){
+                        System.out.println("Description cannot be empty");
+                        break;
+                    }
+                    else {
+                        System.out.println("----------------------");
+                        System.out.println("Added To Do Task");
+                        tasks[taskCounter] = new ToDos(line);
+                        taskCounter++;
+                        break;
+                    }
             case "deadline":
+                if(parts.length < 2 || parts[1].trim().isEmpty()){
+                    System.out.println("Description cannot be empty");
+                    break;
+                }
                 System.out.println("----------------------");
                 System.out.println("Added Deadline to list");
                 tasks[taskCounter] = new Deadline(line);
@@ -50,6 +60,10 @@ public class Tywin {
                 break;
 
             case "event":
+                if(parts.length < 2 || parts[1].trim().isEmpty()){
+                    System.out.println("Description cannot be empty");
+                    break;
+                }
                 System.out.println("----------------------");
                 System.out.println("Added Event to list");
                 tasks[taskCounter] = new Events(line);
@@ -90,9 +104,8 @@ public class Tywin {
 
             default:
                 // Add a new task
-                tasks[taskCounter] = new Task(line);
-                taskCounter++;
-                System.out.println("added: " + line);
+                System.out.println("⚠️ Error: Unrecognized command '" + command + "'.");
+                System.out.println("Please enter a valid command (todo, deadline, event, list, mark, unmark, bye).");
                 System.out.println("----------------------");
                 break;
             }
