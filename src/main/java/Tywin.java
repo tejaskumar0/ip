@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Tywin {
     public static void main(String[] args) {
@@ -13,8 +14,7 @@ public class Tywin {
         System.out.println("What can I do for you?");
         System.out.println("----------------------");
 
-        Task[] tasks = new Task[100];
-        int taskCounter = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
 
         Scanner in = new Scanner(System.in);
 
@@ -29,12 +29,17 @@ public class Tywin {
                 return;
 
             case "list":
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < taskCounter; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
+                if (tasks.isEmpty()) {
+                    System.out.println("You have no more tasks! Enjoy your day!");
+                    break;
+                } else {
+                    System.out.println("Here are the tasks in your list:");
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + ". " + tasks.get(i));
+                    }
+                    System.out.println("----------------------");
+                    break;
                 }
-                System.out.println("----------------------");
-                break;
 
             case "todo":
                     if(parts.length < 2 || parts[1].trim().isEmpty()){
@@ -44,8 +49,7 @@ public class Tywin {
                     else {
                         System.out.println("----------------------");
                         System.out.println("Added To Do Task");
-                        tasks[taskCounter] = new ToDos(line);
-                        taskCounter++;
+                        tasks.add(new ToDos(parts[1]));
                         break;
                     }
             case "deadline":
@@ -55,8 +59,7 @@ public class Tywin {
                 }
                 System.out.println("----------------------");
                 System.out.println("Added Deadline to list");
-                tasks[taskCounter] = new Deadline(line);
-                taskCounter++;
+                tasks.add(new Deadline(parts[1]));
                 break;
 
             case "event":
@@ -66,17 +69,16 @@ public class Tywin {
                 }
                 System.out.println("----------------------");
                 System.out.println("Added Event to list");
-                tasks[taskCounter] = new Events(line);
-                taskCounter++;
+                tasks.add(new Events(line));
                 break;
 
             case "mark":
                 try {
                     int taskNumber = Integer.parseInt(line.split(" ")[1]) - 1;
-                    if (taskNumber >= 0 && taskNumber < taskCounter) {
-                        tasks[taskNumber].markAsDone();
+                    if (taskNumber >= 0 && taskNumber < tasks.size()) {
+                        tasks.get(taskNumber).markAsDone();
                         System.out.println("Nice! I've marked this task as done:");
-                        System.out.println("  " + tasks[taskNumber]);
+                        System.out.println("  " + tasks.get(taskNumber));
                     } else {
                         System.out.println("Invalid task number.");
                     }
@@ -89,10 +91,10 @@ public class Tywin {
             case "unmark":
                 try {
                     int taskNumber = Integer.parseInt(line.split(" ")[1]) - 1;
-                    if (taskNumber >= 0 && taskNumber < taskCounter) {
-                        tasks[taskNumber].unmarkAsDone();
+                    if (taskNumber >= 0 && taskNumber < tasks.size()) {
+                        tasks.get(taskNumber).unmarkAsDone();
                         System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println("  " + tasks[taskNumber]);
+                        System.out.println("  " + tasks.get(taskNumber));
                     } else {
                         System.out.println("Invalid task number.");
                     }
@@ -102,10 +104,26 @@ public class Tywin {
                 System.out.println("----------------------");
                 break;
 
+            case "delete":
+                try{
+                    int taskNumber = Integer.parseInt(line.split(" ")[1]) - 1;
+                    if (taskNumber >= 0 && taskNumber < tasks.size()) {
+                        System.out.println("Task " + (taskNumber + 1) + " was successfully deleted!");
+                        tasks.remove(taskNumber);
+                    }
+                    else {
+                        System.out.println("Invalid task number.");
+                    }
+                }catch (Exception e){
+                    System.out.println("Invalid input. List is empty");
+                }
+                System.out.println("----------------------");
+                break;
+
             default:
                 // Add a new task
                 System.out.println("⚠️ Error: Unrecognized command '" + command + "'.");
-                System.out.println("Please enter a valid command (todo, deadline, event, list, mark, unmark, bye).");
+                System.out.println("Please enter a valid command (todo, deadline, event, list, mark, unmark, bye,delete)");
                 System.out.println("----------------------");
                 break;
             }
