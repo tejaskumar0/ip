@@ -7,6 +7,10 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
     public void addTask(Task task) {
         tasks.add(task);
         System.out.println("Added task: " + task);
@@ -49,5 +53,19 @@ public class TaskList {
         } else {
             System.out.println("⚠️ Error: Invalid task number.");
         }
+    }
+
+    public void addAll(ArrayList<Task> tasksFromFile) {
+        tasks.addAll(tasksFromFile);
+    }
+
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.description.contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
     }
 }
