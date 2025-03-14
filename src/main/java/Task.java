@@ -20,10 +20,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    // ✅ Parse date correctly
+
     public static LocalDate parseDate(String dateStr) {
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
             return LocalDate.parse(dateStr, formatter);
         } catch (Exception e) {
             return null;
@@ -38,7 +38,7 @@ public abstract class Task {
         return "[" + getTaskType() + "]" + status + " " + description;
     }
 
-    // ✅ Fix: Correctly parse stored dates when loading
+
     public static Task fromString(String line) {
         boolean isDone = line.contains("[X]");
 
@@ -47,14 +47,12 @@ public abstract class Task {
             ToDos todo = new ToDos(description);
             if (isDone) todo.markAsDone();
             return todo;
-        }
-
-        else if (line.startsWith("[D]")) {
+        } else if (line.startsWith("[D]")) {
             int byIndex = line.indexOf("(by:");
             String description = line.substring(6, byIndex - 1).trim();
             String by = line.substring(byIndex + 5, line.length() - 1).trim();
 
-            LocalDate deadlineDate = parseDate(by);
+            LocalDate deadlineDate = DateUtil.parseDate(by);
             if (deadlineDate == null) {
                 System.out.println("⚠️ Error: Invalid date format in saved file.");
                 return null;
@@ -63,14 +61,12 @@ public abstract class Task {
             Deadline deadline = new Deadline(description, deadlineDate);
             if (isDone) deadline.markAsDone();
             return deadline;
-        }
-
-        else if (line.startsWith("[E]")) {
+        } else if (line.startsWith("[E]")) {
             int atIndex = line.indexOf("(at:");
             String description = line.substring(6, atIndex - 1).trim();
             String at = line.substring(atIndex + 5, line.length() - 1).trim();
 
-            LocalDate eventDate = parseDate(at);
+            LocalDate eventDate = DateUtil.parseDate(at);
             if (eventDate == null) {
                 System.out.println("⚠️ Error: Invalid date format in saved file.");
                 return null;
@@ -81,6 +77,6 @@ public abstract class Task {
             return event;
         }
 
-        return new ToDos(line); // Default case
+        return new ToDos(line); // Default case for unknown formats
     }
 }

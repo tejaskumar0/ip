@@ -2,11 +2,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    private LocalDate by; // Stores the deadline as LocalDate
+    private final LocalDate by;
 
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
+    }
+
+    public LocalDate getBy() {
+        return by;
     }
 
     @Override
@@ -16,11 +20,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
+        String formattedDate = DateUtil.formatDate(by);
         String status = isDone ? "[X]" : "[ ]";
-        return "[D]" + status + " " + description + " (by: " + by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + ")";
-    }
-
-    public LocalDate getBy() {
-        return by;
+        return "[D]" + status + " " + description + " (by: " + formattedDate + ")";
     }
 }

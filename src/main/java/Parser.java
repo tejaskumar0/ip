@@ -17,24 +17,19 @@ public class Parser {
             break;
         case "deadline":
             try {
-                if (!parts[1].contains("by")) {
-                    System.out.println("⚠️ Error: Deadline task must include 'by' followed by the due date.");
-                    break;
-                }
-
                 String[] deadlineParts = parts[1].split("by", 2);
                 String description = deadlineParts[0].trim();
                 String by = deadlineParts[1].trim();
 
-                LocalDate deadlineDate = Task.parseDate(by);
+                LocalDate deadlineDate = DateUtil.parseDate(by);
                 if (deadlineDate == null) {
-                    System.out.println("⚠️ Error: Invalid date format! Use `yyyy-MM-dd` (e.g., `2024-12-02`).");
+                    System.out.println("⚠️ Error: Invalid date format! Use `d/M/yyyy` (e.g., `2/12/2025`).");
                     break;
                 }
 
                 taskList.addTask(new Deadline(description, deadlineDate));
             } catch (Exception e) {
-                System.out.println("⚠️ Error: Invalid deadline command. Use `deadline <task> by <yyyy-MM-dd>`.");
+                System.out.println("⚠️ Error: Invalid deadline command. Use `deadline <task> by <date>`.");
             }
             break;
         case "event":
@@ -48,15 +43,15 @@ public class Parser {
                 String description = eventParts[0].trim();
                 String at = eventParts[1].trim();
 
-                LocalDate eventDate = Task.parseDate(at);
+                LocalDate eventDate = DateUtil.parseDate(at);
                 if (eventDate == null) {
-                    System.out.println("⚠️ Error: Invalid date format! Use 'dd/MM/yyyy' (e.g., `2024-12-02`).");
+                    System.out.println("⚠️ Error: Invalid date format! Use `d/M/yyyy` (e.g., `2/12/2025`).");
                     break;
                 }
 
                 taskList.addTask(new Events(description, eventDate));
             } catch (Exception e) {
-                System.out.println("⚠️ Error: Invalid event command. Use `event <task> at dd/MM/yyyy.");
+                System.out.println("⚠️ Error: Invalid event command. Use `event <task> at <date>`.");
             }
             break;
         case "mark":

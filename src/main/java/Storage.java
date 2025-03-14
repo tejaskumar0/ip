@@ -1,4 +1,5 @@
 import java.io.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Storage {
@@ -48,7 +49,17 @@ public class Storage {
             ensureDirectoryExists(); // Ensure directory exists before writing
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
                 for (Task task : tasks) {
-                    writer.write(task.toString() + "\n");  // ✅ Ensures date is stored correctly
+                    if (task instanceof Deadline) {
+                        Deadline deadline = (Deadline) task;
+                        writer.write("[D]" + (deadline.isDone ? "[X]" : "[ ]") + " " +
+                                deadline.description + " (by: " + deadline.getBy().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + ")\n");
+                    } else if (task instanceof Events) {
+                        Events event = (Events) task;
+                        writer.write("[E]" + (event.isDone ? "[X]" : "[ ]") + " " +
+                                event.description + " (at: " + event.getAt().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + ")\n");
+                    } else {
+                        writer.write(task.toString() + "\n"); // Default for ToDo tasks
+                    }
                 }
             }
         } catch (IOException e) {
