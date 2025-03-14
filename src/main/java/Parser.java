@@ -3,6 +3,29 @@ import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * The {@code Parser} class is responsible for interpreting and processing user commands.
+ * It takes in user input, extracts relevant details, and executes the corresponding
+ * actions on the {@code TaskList}.
+ *
+ * <p>Commands supported:
+ * <ul>
+ *   <li> {@code list} - Displays all tasks.</li>
+ *   <li> {@code todo <description>} - Adds a new ToDo task.</li>
+ *   <li> {@code deadline <task> by <date>} - Adds a task with a deadline.</li>
+ *   <li> {@code event <task> at <date>} - Adds an event with a specific date.</li>
+ *   <li> {@code mark <index>} - Marks a task as done.</li>
+ *   <li> {@code unmark <index>} - Unmarks a completed task.</li>
+ *   <li> {@code delete <index>} - Deletes a task.</li>
+ *   <li> {@code find <keyword>} - Searches for tasks containing a keyword.</li>
+ *   <li> {@code bye} - Exits the program and saves tasks.</li>
+ * </ul>
+ *
+ * <p>Each command is processed using a {@code switch} statement, ensuring the appropriate
+ * method in {@code TaskList} is called to modify the task list accordingly.
+ *
+ * @author tejaskumar0
+ */
 public class Parser {
     public static void parse(String input, TaskList taskList) {
         String[] parts = input.split(" ", 2);

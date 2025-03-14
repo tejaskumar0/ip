@@ -1,2 +1,2 @@
 [D][ ] project (by: 12/12/2025)
-[E][ ] meeting (at: 13/12/2025)
+[T][X] homework

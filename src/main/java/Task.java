@@ -1,6 +1,9 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a description and completion status.
+ */
 public abstract class Task {
     protected final String description;
     protected boolean isDone;
@@ -10,17 +13,23 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    // Mark the task as done
+    /**
+     * Mark the task as done
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
-    // Mark the task as not done
+    /**
+     * Mark the task as not done
+     */
     public void unmarkAsDone() {
         this.isDone = false;
     }
 
-
+    /**
+     * Convert Date into a more readable format
+     */
     public static LocalDate parseDate(String dateStr) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
