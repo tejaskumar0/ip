@@ -16,8 +16,9 @@ public class Events extends Task {
 
     @Override
     public String toString() {
+        String formattedDate = DateUtil.formatDate(at); // Format date as "2nd December 2025"
         String status = isDone ? "[X]" : "[ ]";
-        return "[E]" + status + " " + description + " (at: " + at.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + ")";
+        return "[E]" + status + " " + description + " (at: " + formattedDate + ")";
     }
 
     public LocalDate getAt() {
