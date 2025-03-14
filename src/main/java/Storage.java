@@ -2,14 +2,28 @@ import java.io.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Handles the reading and writing of tasks from a file.
+ */
 public class Storage {
     private final String filePath;
 
+
+
+    /**
+     * Creates a new Storage object that manages task persistence.
+     *
+     * @param filePath The file path where tasks will be stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         ensureDirectoryExists();  // Ensures "data/" exists before using file
     }
 
+    /**
+     * Ensures that the directory for storing the file exists.
+     * If it does not exist, the method attempts to create it.
+     */
     private void ensureDirectoryExists() {
         File file = new File(filePath);
         File directory = file.getParentFile(); // Get parent directory "data/"
@@ -24,6 +38,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file and returns them as an ArrayList.
+     *
+     * @return A list of tasks stored in the file.
+     */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -43,6 +62,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to the file, formatting them appropriately based on their type.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public void saveTasks(ArrayList<Task> tasks) {
         try {
             File file = new File(filePath);
