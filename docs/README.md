@@ -37,28 +37,29 @@ Tywin offers the following features to help you stay organized:
 
 Tywin supports the following commands:
 
-Task Commands
+## Task Commands
 
-Command	Description	Example
-todo <task>	Adds a new To-Do task.	todo Read book
-deadline <task> by <date>	Adds a task with a deadline.	deadline Submit report by 12/12/2025
-event <event name> at <date>	Adds an event with a specific date.	event Project meeting at 6/8/2025
+| Command                 | Description                     | Example                                  |
+|-------------------------|--------------------------------|------------------------------------------|
+| `todo <task>`          | Adds a new To-Do task.         | `todo Read book`                         |
+| `deadline <task> by <date>` | Adds a task with a deadline. | `deadline Submit report by 12/12/2025`   |
+| `event <event name> at <date>` | Adds an event with a specific date. | `event Project meeting at 6/8/2025` |
 
+## Task Management Commands
 
-Task Management Commands
+| Command               | Description                      |
+|-----------------------|----------------------------------|
+| `list`               | Displays all tasks with their status. |
+| `mark <task number>` | Marks a task as completed.      |
+| `unmark <task number>` | Unmarks a completed task.    |
+| `delete <task number>` | Deletes a task from the list. |
 
-Command	Description	
-list	Displays all tasks with their status.
-mark <task number>	Marks a task as completed.	
-unmark <task number>	Unmarks a completed task.
-delete <task number>	Deletes a task from the list.	
+## Search & Exit Commands
 
-
-Search & Exit Commands
-
-Command	Description	Example
-find <keyword>	Searches for tasks containing the keyword.	find book
-bye	Saves all tasks and exits the program.	bye
+| Command         | Description                          | Example       |
+|---------------|--------------------------------------|---------------|
+| `find <keyword>` | Searches for tasks containing the keyword. | `find book` |
+| `bye`          | Saves all tasks and exits the program. | `bye` |
 
 ⸻
 
